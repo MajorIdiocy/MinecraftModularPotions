@@ -73,7 +73,7 @@ public class main extends JavaPlugin implements Listener
 	}
 	
 	@EventHandler
-	public void consumeEvent(PlayerItemConsumeEvent cnsm)
+	public void cnsmEventFlight(PlayerItemConsumeEvent cnsm)
 	{
 		if(cnsm.getItem().getType() != potionOfFlight.getType()) {return;}
 		final Player p = cnsm.getPlayer();
@@ -94,7 +94,13 @@ public class main extends JavaPlugin implements Listener
 				}
 			}, 1200);
 		}
-		
+	}
+	@EventHandler
+	public void cnsmEventHaste(PlayerItemConsumeEvent cnsm)
+	{
+		if(cnsm.getItem().getType() != potionOfHaste.getType()) {return;}
+		final Player p = cnsm.getPlayer();
+		final ItemStack i = cnsm.getItem();
 		if(i.isSimilar(potionOfHaste))
 		{
 			p.addPotionEffect(PotionEffectType.FAST_DIGGING.createEffect(1200, 0));
