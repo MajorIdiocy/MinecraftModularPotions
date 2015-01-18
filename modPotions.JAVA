@@ -22,8 +22,11 @@ import org.bukkit.potion.PotionType;
 import org.bukkit.scheduler.BukkitScheduler;
 
 /*
- * Author: Nicholas R. Boyd
- * Last Edited: 9/30/14
+ * Minecraft server plugin that adds a new way to brew potions with more than one effect.
+ * 
+ * @author Nicholas R. Boyd
+ * @version 1.0
+ * Last Edited: January 17, 2015
  */
 public class main extends JavaPlugin implements Listener {
 	ArrayList<Block> stands;
@@ -190,8 +193,7 @@ public class main extends JavaPlugin implements Listener {
 			final ArrayList<Boolean> modifiers, final Chest stand,
 			final HumanEntity p) {
 		Bukkit.broadcastMessage("Potion Brewing Has Begun");
-		// Finds what poteffects have been saved , and determines their
-		// 'opposites'
+		// Finds what poteffects have been saved , and determines their 'opposites'
 		final ArrayList<PotionEffectType> eventTypes = new ArrayList<PotionEffectType>(
 				50);
 		if (effects.contains(PotionEffectType.HUNGER)
@@ -232,8 +234,7 @@ public class main extends JavaPlugin implements Listener {
 
 		final BukkitScheduler scheduler = Bukkit.getServer().getScheduler();
 
-		// Every 3 seconds, there is a chance one of the negative effects will
-		// activate
+		// Every 3 seconds, there is a chance one of the negative effects will activate
 		scheduler.scheduleSyncRepeatingTask(this, new Runnable() {
 			@Override
 			public void run() {
@@ -264,13 +265,15 @@ public class main extends JavaPlugin implements Listener {
 
 				// Name Creation
 				String[] name = new String[3];
+				
+				// First part of name
 				if (effects.contains(PotionEffectType.HEAL)
 						|| effects.contains(PotionEffectType.REGENERATION)
 						|| effects.contains(PotionEffectType.ABSORPTION)
 						|| effects.contains(PotionEffectType.HEALTH_BOOST)
 						|| effects.contains(PotionEffectType.DAMAGE_RESISTANCE)) {
 					name[0] = "Elixer";
-				} // First part of name
+				}
 				else if (effects.contains(PotionEffectType.HUNGER)
 						|| effects.contains(PotionEffectType.SATURATION)) {
 					name[0] = "Draught";
@@ -280,12 +283,13 @@ public class main extends JavaPlugin implements Listener {
 
 				name[1] = " of";
 
+				// Last Part of name
 				if (effects.contains(PotionEffectType.POISON)
 						|| effects.contains(PotionEffectType.HARM)
 						|| effects.contains(PotionEffectType.WEAKNESS)
 						|| effects.contains(PotionEffectType.WITHER)) {
 					name[2] = " Harming";
-				} // Last Part of name
+				}
 				else if (effects.contains(PotionEffectType.JUMP)
 						|| effects.contains(PotionEffectType.SPEED)
 						|| effects.contains(PotionEffectType.WATER_BREATHING)
@@ -299,10 +303,12 @@ public class main extends JavaPlugin implements Listener {
 				} else {
 					name[2] = " Something";
 				}
+				
 				StringBuffer name1 = new StringBuffer();
 				for (int i = 0; i < name.length; i++) {
 					name1.append(name[i]);
 				}
+				
 				String nameFinal = name1.toString();
 				meta.setDisplayName(nameFinal);
 
@@ -311,7 +317,6 @@ public class main extends JavaPlugin implements Listener {
 				for (PotionEffectType pet : effects) {
 					meta.addCustomEffect(pet.createEffect(r, t), true);
 				}
-				// Lore Creation (future stuff)
 
 				newPot.setItemMeta(meta);
 
